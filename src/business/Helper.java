@@ -36,9 +36,13 @@ public class Helper {
 	    return tiles;
 	}
 	public static void distributeTilesToPlayers(List<Tile> tiles,Player[] players) {
-		for(Player player:players) {
-			distributeTiles(tiles,player,14);
+		for(int i=0;i<players.length;i++) { //player4 takes 15 tiles,other players takes 14 tiles
+			if(i!=3) 
+				distributeTiles(tiles,players[i],14);
+			else 
+				distributeTiles(tiles,players[i],15);
 		}
+		
 	}
 	public static void detectJoker(Player[] players,Tile joker) {
 		for(Player p:players) {
@@ -62,6 +66,11 @@ public class Helper {
 				player.getTiles().add(fJoker);
 			}
 		}
+		return player;
+	}
+	public static Player addJokerToList(Player player, Tile joker,int numberOfOkey) { //joker added to show player's tile
+		for(int i=0;i<numberOfOkey;i++)
+			player.getTiles().add(joker);
 		return player;
 	}
 	public static int getMinValue(int[] numbers){ //returns minimum value in array to choose proper tile laying

@@ -17,9 +17,7 @@ public class Simulation {
 	    Player[] players=new Player[4];
 	    for(int i=0;i<4;i++) 
 	    	players[i]=new Player();
-	    
 	    Helper.distributeTilesToPlayers(tiles,players);
-	    
 	    Helper.detectJoker(players, joker);	    
 
 	    Helper.convertFalseJokersToTiles(players,joker);
@@ -29,14 +27,16 @@ public class Simulation {
 	    	numberOfUnusedTiles[j]=Helper.calculateRemainingTiles(players[j]);
 	    int bestCase=Helper.getMinValue(numberOfUnusedTiles); //The player with a minimum of unused tiles wins
 	    
-	    for(int j=0;j<numberOfUnusedTiles.length;j++) 
+	    for(int j=0;j<numberOfUnusedTiles.length;j++) {
 	    	players[j]=Helper.tileToFalseJoker(players[j],joker);
+	    	players[j]=Helper.addJokerToList(players[j],joker,players[j].getNumberOfJoker());
+	    }
 	    for(int k=0;k<numberOfUnusedTiles.length;k++) {
 	    	if(numberOfUnusedTiles[k]==bestCase) {
 	    		System.out.println("\nPlayer"+(k+1)+" won!");
 	    		System.out.println("Tiles: "+players[k].getTiles());
 	    		if(players[k].getNumberOfJoker()>0)
-		    		System.out.println("Also "+"Player"+(k+1)+" has "+players[k].getNumberOfJoker()+" joker:" + joker);
+		    		System.out.println("Player"+(k+1)+" has "+players[k].getNumberOfJoker()+" joker:" + joker);
 	    		System.out.println("There are " +numberOfUnusedTiles[k]+" unused tiles.\n");
 	    	}
 	    }
